@@ -1,0 +1,36 @@
+{
+  "name": "permacast-tokenization",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "tokenizing Permacast episodes as ERC721s",
+  "main": "./src/app.js",
+  "scripts": {
+    "start": "node ./src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Parallel-News/permacast-tokenization.git"
+  },
+  "keywords": [
+    "permacast",
+    "NFT",
+    "ERC721"
+  ],
+  "author": "charmful0x",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Parallel-News/permacast-tokenization/issues"
+  },
+  "homepage": "https://github.com/Parallel-News/permacast-tokenization#readme",
+  "dependencies": {
+    "@execution-machine/sdk": "^0.1.9",
+    "arseeding-js": "^0.0.25",
+    "arweave": "^1.13.5",
+    "axios": "^1.3.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "ethers": "^5.7.2",
+    "express": "^4.18.2",
+    "web3": "^1.9.0"
+  }
+}

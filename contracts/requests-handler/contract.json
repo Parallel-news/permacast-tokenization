@@ -1,0 +1,8 @@
+{
+  "permacast_contract": "PkYlJofH0Vz0oVpoPB67KrKq0rPzPBg7O4I28eNFmzM",
+  "admin": "vZY2XY1RD9HIfWi8ift-1_DnHLDadZMWrufSh-_rKF0",
+  "signature_message": "hello world",
+  "ar_molecule_endpoint": "http://ar.molecule.sh",
+  "records": [],
+  "signatures": []
+}
