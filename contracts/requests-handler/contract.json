@@ -3,6 +3,13 @@
   "admin": "vZY2XY1RD9HIfWi8ift-1_DnHLDadZMWrufSh-_rKF0",
   "signature_message": "hello world",
   "ar_molecule_endpoint": "http://ar.molecule.sh",
+  "claimable_factories": [
+    "0xce44e1853045b2115dfdca08a09bca2a5336efc8",
+    "0x2f7f222d1132868e3201c791ec59e6d677c4149c",
+    "0x422ac1ac73da0f7411f3e71304153d481f883e70",
+    "0x914861b070fdf5eeed3691c1e0dbd47d5652a90e"
+  ],
+  "factories": {},
   "records": [],
   "signatures": []
 }

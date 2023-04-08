@@ -1,6 +1,6 @@
-export const NFT_CONTRACT_ADDRESS = `0x1690a413DCFC7D373142A856090fA8b8f21113Db`;
+// export const NFT_CONTRACT_ADDRESS = `0x1690a413DCFC7D373142A856090fA8b8f21113Db`;
 export const MUMBAI_RPC_URL = `https://endpoints.omniatech.io/v1/matic/mumbai/public`;
-export const REQUESTS_EXM_CONTRACT = `J4FeoPYWkEj1TtQYqjAeBNQduNxtN491mGhkpH0XPiw`;
+export const REQUESTS_EXM_CONTRACT = `VYrbWCRkskL9Bulpt_mqMWEoo8Z3kuCQtHXrjkqLUxM`;
 export const NFT_CONTRACT_ABI = [
   {
     "inputs": [],
