@@ -1,6 +1,31 @@
 export async function handle(state, action) {
   const input = action.input;
 
+  if (input.function === "claimFactory") {
+    const { jwk_n, sig, cid } = input;
+
+    await _verifyArSignature(jwk_n, sig);
+    const caller = await _ownerToAddress(jwk_n);
+    ContractAssert(
+      state.claimable_factories.length,
+      "ERROR_NO_CLAIMABLE_FACTORIES_NOW"
+    );
+    ContractAssert(!(cid in state.factories), "ERROR_FACTORY_CLAIMED_FOR_ID");
+    const channelsIds = (await _getPermacastState()).map((channel) => ({
+      cid: channel.pid,
+      owner: channel.owner,
+    }));
+    ContractAssert(
+      channelsIds.find(
+        (channel) => channel.owner === caller && channel.cid === cid
+      ),
+      "ERROR_INVALID_CALLER"
+    );
+    state.factories[cid] = state.claimable_factories[0];
+    state.claimable_factories.splice(0, 1);
+    return { state };
+  }
+
   if (input.function === "submitRequest") {
     const { eid, jwk_n, sig, target } = input;
 
@@ -10,14 +35,19 @@ export async function handle(state, action) {
 
     const channel = await _getChannelByEid(eid);
     const episodeObject = channel.episodes.find((ep) => ep.eid === eid);
-    EXM.print(episodeObject)
+    EXM.print(episodeObject);
     ContractAssert(channel.owner === caller, "ERROR_INVALID_CALLER");
+    ContractAssert(
+      channel.pid in state.factories,
+      "ERROR_CHANNEL_DONT_HAVE_FACTORY"
+    );
     _notTokenizedBefore(eid);
 
     state.records.push({
       record_id: SmartWeave.transaction.id,
       eid: eid,
       target: target,
+      factory: state.factories[channel.pid],
       status: "pending",
       metadata: {
         cover: channel.cover,
@@ -25,8 +55,7 @@ export async function handle(state, action) {
         description: episodeObject.description,
         content: episodeObject.contentTx,
         cid: channel.pid,
-
-      }
+      },
     });
 
     return { state };
@@ -57,7 +86,37 @@ export async function handle(state, action) {
     ContractAssert(record.status === "pending", "ERROR_REQUEST_RESOLVED");
     state.records[recordIndex].mint_hash = mint_hash;
     state.records[recordIndex].status = "resolved";
-    delete state.records[recordIndex].metadata
+    delete state.records[recordIndex].metadata;
+
+    return { state };
+  }
+
+  if (input.function === "addFactory") {
+    const { jwk_n, sig, contract_address } = input;
+
+    await _verifyArSignature(jwk_n, sig);
+    const caller = await _ownerToAddress(jwk_n);
+    ContractAssert(caller === state.admin, "ERROR_INVALID_CALLER");
+    ContractAssert(
+      !state.claimable_factories.includes(contract_address),
+      "ERROR_CONTRACT_ADDED_ALREADY"
+    );
+    state.claimable_factories.push(contract_address);
+
+    return { state };
+  }
+
+  if (input.function === "delFactory") {
+    const { jwk_n, sig, contract_address } = input;
+
+    await _verifyArSignature(jwk_n, sig);
+    const caller = await _ownerToAddress(jwk_n);
+    ContractAssert(caller === state.admin, "ERROR_INVALID_CALLER");
+    const factoryIndex = state.claimable_factories.findIndex(
+      (factory) => factory === contract_address
+    );
+    ContractAssert(factoryIndex >= 0, "ERROR_FACTORY_NOT_FOUND");
+    state.claimable_factories.splice(factoryIndex, 1);
 
     return { state };
   }
