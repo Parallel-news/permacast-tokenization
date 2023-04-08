@@ -30,7 +30,7 @@ export async function resolveRequests() {
     const requests = await getUnresolvedRequests();
     for (const request of requests) {
       const token_uri = await generateURI(request);
-      const nftCreate = await mintEpisode(request.target, `ar://${token_uri}`);
+      const nftCreate = await mintEpisode(request.target, `ar://${token_uri}`, request.factory);
       await exmWrite(nftCreate.hash, request.record_id);
     }
   } catch (error) {
