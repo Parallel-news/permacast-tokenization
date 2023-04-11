@@ -12,7 +12,7 @@ This repository is a bridge for Permacast episodes (audio/video content) to be m
 | :-------------: |:-------------:|
 | stage      | testnet     |
 | ERC721 factory      | [0x1690a413DCFC7D373142A856090fA8b8f21113Db](https://mumbai.polygonscan.com/address/0x1690a413dcfc7d373142a856090fa8b8f21113db) / [source code](./contracts/ERC721) |
-| EXM jobs resolver      | [J4FeoPYWkEj1TtQYqjAeBNQduNxtN491mGhkpH0XPiw](https://api.exm.dev/read/J4FeoPYWkEj1TtQYqjAeBNQduNxtN491mGhkpH0XPiw) / [source code](./contracts/requests-handler) |
+| EXM jobs resolver      | [VYrbWCRkskL9Bulpt_mqMWEoo8Z3kuCQtHXrjkqLUxM](https://api.exm.dev/read/VYrbWCRkskL9Bulpt_mqMWEoo8Z3kuCQtHXrjkqLUxM) / [source code](./contracts/requests-handler) |
 | Permacast contract | [PkYlJofH0Vz0oVpoPB67KrKq0rPzPBg7O4I28eNFmzM](https://api.exm.dev/read/PkYlJofH0Vz0oVpoPB67KrKq0rPzPBg7O4I28eNFmzM) - testnet Bloodstone |
 
 ## Tech Stack
