@@ -35,7 +35,6 @@ export async function handle(state, action) {
 
     const channel = await _getChannelByEid(eid);
     const episodeObject = channel.episodes.find((ep) => ep.eid === eid);
-    EXM.print(episodeObject);
     ContractAssert(channel.owner === caller, "ERROR_INVALID_CALLER");
     ContractAssert(
       channel.pid in state.factories,
@@ -48,6 +47,7 @@ export async function handle(state, action) {
       eid: eid,
       target: target,
       factory: state.factories[channel.pid],
+      cid: channel.pid,
       status: "pending",
       metadata: {
         cover: channel.cover,
