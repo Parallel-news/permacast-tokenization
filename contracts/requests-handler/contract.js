@@ -206,8 +206,9 @@ export async function handle(state, action) {
         !state.signatures.includes(signature),
         "ERROR_SIGNATURE_ALREADY_USED"
       );
-      const sigBody = state.sig_messages;
-      const encodedMessage = new TextEncoder().encode(state.signature_message);
+      const encodedMessage = new TextEncoder().encode(
+        state.signature_message + owner
+      );
       const typedArraySig = Uint8Array.from(atob(signature), (c) =>
         c.charCodeAt(0)
       );

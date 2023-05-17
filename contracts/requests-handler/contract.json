@@ -1,7 +1,7 @@
 {
   "permacast_contract": "PkYlJofH0Vz0oVpoPB67KrKq0rPzPBg7O4I28eNFmzM",
   "admin": "vZY2XY1RD9HIfWi8ift-1_DnHLDadZMWrufSh-_rKF0",
-  "signature_message": "hello world",
+  "signature_message": "my Arweave PK for Permacast is ",
   "ar_molecule_endpoint": "http://ar.molecule.sh",
   "claimable_factories": [
     "0xce44e1853045b2115dfdca08a09bca2a5336efc8",
