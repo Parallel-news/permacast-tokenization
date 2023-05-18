@@ -57,7 +57,7 @@ async function exmWrite(hash, record_id) {
 }
 
 async function generateSig() {
-  const data = new TextEncoder().encode(`hello world`);
+  const data = new TextEncoder().encode(`my Arweave PK for Permacast is ${PK.n}`);
   const sign = await arweave.crypto.sign(PK, data);
 
   return sign.toString("base64");
