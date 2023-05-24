@@ -1,4 +1,4 @@
-import { NFT_CONTRACT_ABI, MUMBAI_RPC_URL } from "./constants.js"
+import { NFT_CONTRACT_ABI, MUMBAI_RPC_URL } from "./constants.js";
 import { ethers } from "ethers";
 import Web3 from "web3";
 import dotenv from "dotenv";
@@ -14,14 +14,14 @@ export async function mintEpisode(address, token_uri, factory_address) {
       NFT_CONTRACT_ABI,
       signer
     );
-    console.log(address, token_uri)
-    const interaction = await Contract.mint(address, token_uri);
+    console.log(address, token_uri);
+    const interaction = await Contract.mint(address, token_uri, {
+      gasLimit: 200000,
+    });
     await interaction.wait();
-    console.log(interaction)
+    console.log(interaction);
     return interaction;
   } catch (error) {
     console.log(error);
   }
 }
-
-
