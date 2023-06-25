@@ -61,6 +61,49 @@ export async function handle(state, action) {
     return { state };
   }
 
+  if (input.function === "submitRequests") {
+    const { payload, jwk_n, sig } = input;
+    let UID = 0;
+
+    const caller = await _ownerToAddress(jwk_n);
+    await _verifyArSignature(jwk_n, sig);
+
+    for (const req of payload) {
+      const { target, eid } = req;
+
+      _validateEthAddress(target);
+
+      const channel = await _getChannelByEid(eid);
+      const episodeObject = channel.episodes.find((ep) => ep.eid === eid);
+      ContractAssert(channel.owner === caller, "ERROR_INVALID_CALLER");
+      ContractAssert(
+        channel.pid in state.factories,
+        "ERROR_CHANNEL_DONT_HAVE_FACTORY"
+      );
+      _notTokenizedBefore(eid);
+
+      state.records.push({
+        record_id: SmartWeave.transaction.id + String(UID),
+        eid: eid,
+        target: target,
+        factory: state.factories[channel.pid],
+        cid: channel.pid,
+        status: "pending",
+        metadata: {
+          cover: channel.cover,
+          name: episodeObject.episodeName,
+          description: episodeObject.description,
+          content: episodeObject.contentTx,
+          cid: channel.pid,
+        },
+      });
+
+      UID += 1;
+    }
+
+    return { state };
+  }
+
   // READ FUNCTIONS
 
   if (input.function === "getUnresolvedReqs") {
